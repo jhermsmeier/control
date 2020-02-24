@@ -1,0 +1,15 @@
+{
+  "name": "@jhersmeier/control",
+  "version": "0.0.0",
+  "description": "Minimal, speedy test framework",
+  "author": "Jonas Hermsmeier <jhermsmeier@gmail.com> (https://jhermsmeier.de)",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  }
+}
