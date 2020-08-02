@@ -3,18 +3,19 @@ var fs = require( 'fs' )
 var path = require( 'path' )
 var control = require( '..' )
 var argv = process.argv.slice( 2 )
-var filename = argv.shift()
 
-var stats = fs.statSync( filename )
 var files = []
 
-if( stats.isDirectory() ) {
-  files = fs.readdirSync( filename )
-    .filter(( basename ) => path.extname( basename ) == '.js' )
-    .map(( basename ) => path.join( process.cwd(), filename, basename ) )
-} else {
-  files.push( path.join( process.cwd(), filename ) )
-}
+argv.forEach(( filename ) => {
+  var stats = fs.statSync( filename )
+  if( stats.isDirectory() ) {
+    files = fs.readdirSync( filename )
+      .filter(( basename ) => path.extname( basename ) == '.js' )
+      .map(( basename ) => path.join( process.cwd(), filename, basename ) )
+  } else {
+    files.push( path.join( process.cwd(), filename ) )
+  }
+})
 
 files.forEach(( filename ) => {
   require( filename )
