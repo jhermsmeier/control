@@ -8,6 +8,15 @@ var argv = process.argv.slice( 2 )
 
 var files = []
 
+global.context = (...argv) => { control.context( ...argv ) }
+global.setup = (...argv) => { control.setup( ...argv ) }
+global.teardown = (...argv) => { control.teardown( ...argv ) }
+global.before = (...argv) => { control.before( ...argv ) }
+global.after = (...argv) => { control.after( ...argv ) }
+global.test = (...argv) => { control.test( ...argv ) }
+global.skip = (...argv) => { control.skip( ...argv ) }
+global.only = (...argv) => { control.only( ...argv ) }
+
 argv.forEach(( filename ) => {
   var stats = fs.statSync( filename )
   if( stats.isDirectory() ) {
