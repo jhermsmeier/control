@@ -57,15 +57,18 @@ const files = argv.slice().filter(( arg ) => {
 // Default to files in `test` directory
 if( files.length == 0 ) files.push( 'test' )
 
+function isJS( filename ) {
+  return /\.(js|mjs|cjs)$/.test( filename )
+}
+
 async function load( files ) {
   for( let filename of files ) {
     let stats = await fs.stat( filename )
     if( stats.isDirectory() ) {
       await loadDir( filename )
-    } else if( stats.isFile() ) {
-      if( /\.(js|mjs|cjs)$/.test( filename ) ) {
-        await import( filename )
-      }
+    } else if( stats.isFile() && isJS( filename ) ) {
+      filename = path.join( process.cwd(), filename )
+      await import( filename )
     }
   }
 }
@@ -73,18 +76,18 @@ async function load( files ) {
 async function loadDir( dirname ) {
   let dir = await fs.opendir( dirname, { recursive: true })
   for await( let dirent of dir ) {
-    let filename = path.join( dirname, dirent.name )
-    if( dirent.isFile() ) {
+    let filename = path.join( dirent.parentPath || dirent.path, dirent.name )
+    if( dirent.isFile() && isJS( filename ) ) {
       filename = path.join( process.cwd(), filename )
-      if( /\.(js|mjs|cjs)$/.test( filename ) ) {
-        await import( filename )
-      }
+      await import( filename )
     }
   }
 }
 
+console.log( 'process.cwd', process.cwd() )
+
 const reporter = new Reporter( control, {
-  libraryPath: path.join( path.dirname( process.argv[1] ), '..' ),
+  libraryPath: path.join( __dirname, '..' ),
 })
 
 load( files )
