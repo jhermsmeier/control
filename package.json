@@ -9,7 +9,7 @@
     "control": "bin/control.mjs"
   },
   "scripts": {
-    "test": "bin/control test"
+    "test": "bin/control.mjs test"
   },
   "directories": {
     "example": "example",
