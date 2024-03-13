@@ -84,8 +84,6 @@ async function loadDir( dirname ) {
   }
 }
 
-console.log( 'process.cwd', process.cwd() )
-
 const reporter = new Reporter( control, {
   libraryPath: path.join( __dirname, '..' ),
 })
