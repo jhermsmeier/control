@@ -1,6 +1,6 @@
 {
   "name": "@jhermsmeier/control",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Minimal, speedy test framework",
   "author": "Jonas Hermsmeier <jhermsmeier@gmail.com> (https://jhermsmeier.de)",
   "license": "MIT",
